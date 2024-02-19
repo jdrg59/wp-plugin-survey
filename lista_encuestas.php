@@ -80,13 +80,19 @@ global $wpdb;
     <tbody id="the-list">
       <?php
       foreach ($lista_encuestas as $key => $value) {
+        //Obtener id elemento
+        $id = $value['encuestasId'];
+
         $nombre = $value['nombre'];
         $shortcode = $value['shortcode'];
         echo "
               <tr>
                   <td>$nombre </td>
                   <td>$shortcode</td>
-                  <td> <a class='page-title-action'>Borrar</a></td>
+                  <td> 
+                  <a class='page-title-action btn btn-primary'>Ver estadisticas</a>
+                  <a  data-id='$id' class='page-title-action btn btn-danger'>Borrar</a>
+                  </td>
               </tr>
               ";
       }

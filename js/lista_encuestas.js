@@ -1,5 +1,8 @@
 jQuery(document).ready(function($) {
 
+    //Ver ajax funcionando y TOKEN
+   // console.log(SolicitudesAjax);
+
     //console.log('Estoy aqui')
     $('#btnnuevo').click(function(){
         $('#modalnuevo').modal('show');
@@ -25,5 +28,29 @@ jQuery(document).ready(function($) {
         $("#row" +button_id+"").remove();
         return false;
 
+    })
+
+
+
+    //FUNCION QUE EJECUTA EL ELIMINAR
+    $(document).on('click', "a[data-id]", function(){
+        var id= this.dataset.id
+        console.log(id)
+
+        //Guardar por medio de AJAX metodo wordpress
+        var url = SolicitudesAjax.url;
+        $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    action: "peticioneliminar",
+                    nonce: SolicitudesAjax.seguridad,
+                    id: id,
+                },
+                success:function(){
+                    alert('Datos Eliminados correctamente');
+                    location.reload();
+                }
+        });
     })
 });
