@@ -83,19 +83,21 @@ function Submenu(){
 }
 
 
-//####### Encolar - integrar bootstrap
+//####### importar librerias - integrar bootstrap
 function EncolarBoostraJS($hook){
     //evitar que sobre cargue la pagina en otros plugins
     //echo "<script>console.log('hola: $hook')</script>";
-    if($hook != "wp-jdrg/lista_encuestas.php"){
+    if($hook != "wp-plugin-survey/lista_encuestas.php"){
         return;//evitamos que sobrecargue sitio
     }
     wp_enqueue_script( 'bootstrapJs', plugins_url( 'bootstrap/js/bootstrap.min.js', __FILE__ ),array('jquery'));
 }
+//mostrarlo en acciones
 add_action( 'admin_enqueue_scripts','EncolarBoostraJS');
 
+
 function EncolarBoostrapCSS($hook){
-    if($hook != "wp-jdrg/lista_encuestas.php"){
+    if($hook != "wp-plugin-survey/lista_encuestas.php"){
         return;
     }
     wp_enqueue_style( 'bootstrapCSS', plugins_url( 'bootstrap/css/bootstrap.min.css', __FILE__ ));
@@ -103,7 +105,7 @@ function EncolarBoostrapCSS($hook){
 add_action( 'admin_enqueue_scripts','EncolarBoostrapCSS');
 
 function EncolarJS($hook){
-    if($hook != "wp-jdrg/lista_encuestas.php"){
+    if($hook != "wp-plugin-survey/lista_encuestas.php"){
         return;
     }
     wp_enqueue_script( 'JsExterno', plugins_url( 'js/lista_encuestas.js', __FILE__ ),array('jquery'));
