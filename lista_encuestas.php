@@ -19,7 +19,7 @@ global $wpdb;
     $resultado = $wpdb->get_results($query, ARRAY_A);
     $proximoId = $resultado[0]['encuestasId'] + 1;
     //creando shortcode
-    $shortcode = "[ENC_" .$proximoId ."]";
+    $shortcode = "[ENC id='$proximoId']";
 
     //Array que resive el insert
     $datos = [

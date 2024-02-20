@@ -10,6 +10,10 @@ Text Domain: mesodi
 Domain Path: /languages
 */
 
+/*requerimientos */
+require_once dirname(__FILE__). '/clases/codigocorto.class.php';
+
+
 function Activar()
 {
     global $wpdb;
@@ -149,3 +153,16 @@ function EliminarEncuestas()
 
 //ejecutar eliminado
 add_action( 'wp_ajax_peticioneliminar', 'EliminarEncuestas' );
+
+
+//Shortcode enviar id a funcion en clases creadas
+
+function imprimirshortcode($atts){
+    $_short = new codigocorto; //clase creada en clases/codigocorto.class.php
+    $id= $atts['id']; //capturo los parametros de un shortcode ya creado
+
+    $html = $_short->Armador($id);
+    return $html;
+    //var_dump($atts);
+}
+add_shortcode( "ENC", "imprimirshortcode" );
