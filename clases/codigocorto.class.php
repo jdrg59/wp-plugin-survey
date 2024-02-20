@@ -12,7 +12,6 @@ class codigocorto{
         return $datos[0];
     }
 
-
     public function ObtenerEncuestaDetalle($encuestaid){
         global $wpdb;
         $tabla2 = "{$wpdb->prefix}encuenstas_detalle";
@@ -23,7 +22,6 @@ class codigocorto{
         }
         return $datos;
     }
-
 
     public function formOpen($titulo){
         $html = "
@@ -37,7 +35,6 @@ class codigocorto{
         return $html;
     }
 
-
     public function formClose(){
         $html = "
               <br>
@@ -48,7 +45,6 @@ class codigocorto{
 
         return $html;
     }
-
 
     function fromInput($detalleid,$pregunta,$tipo){
         $html="";
@@ -73,7 +69,6 @@ class codigocorto{
         }
         return $html;
     }
-
 
     function Armador($encuestaid){
         $enc = $this->ObtenerEncuesta($encuestaid);
@@ -101,7 +96,6 @@ class codigocorto{
         return $html;
 
     }
-
 
     function GuardarDetalle($datos){
         global $wpdb;

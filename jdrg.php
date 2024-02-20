@@ -40,6 +40,7 @@ function Activar()
             `DetalleId` INT NULL,
             `Codigo` VARCHAR(45) NULL,
             `Respuesta` VARCHAR(45) NULL,
+            `Codigo`VARCHAR(45) NULL,     
             PRIMARY KEY (`RespuestaId`));
           ";
     $wpdb->query($sql3);
@@ -133,8 +134,7 @@ function EncolarJS($hook)
 add_action('admin_enqueue_scripts', 'EncolarJS');
 
 //Ajax Eliminar
-function EliminarEncuestas()
-{
+function EliminarEncuestas(){
     $nonce = $_POST['nonce'];   //lista_encuestas linea 48
 
     if (!wp_verify_nonce($nonce, 'seg')) {
@@ -160,6 +160,32 @@ add_action( 'wp_ajax_peticioneliminar', 'EliminarEncuestas' );
 function imprimirshortcode($atts){
     $_short = new codigocorto; //clase creada en clases/codigocorto.class.php
     $id= $atts['id']; //capturo los parametros de un shortcode ya creado
+
+    //Pruebas de boton guardar
+    if(isset($_POST['btnguardar'])){
+       // var_dump($_POST); //Ver cuando el user le da clic al btn guardar
+
+       //recorrer formulario en clase ya antes programada
+       $listadePreguntas = $_short->ObtenerEncuestaDetalle($id);
+       $codigo = uniqid(); //Genera codigos aleatorios
+
+       //Recorremos el array
+       foreach($listadePreguntas as $key => $value ){
+        $idpregunta = $value['DetalleId'];
+            if(isset($_POST[$idpregunta])){
+                $valortxt = $_POST[$idpregunta];
+                //Campos de la tabla encuestas_respuesta
+                $datos = [
+                    'DetalleId' => $idpregunta,
+                    'Codigo' => $codigo,
+                    'Respuesta' => $valortxt
+                ];
+                $_short->GuardarDetalle($datos); //se creara en codigocorto.class.php
+            }
+       }
+       return "Encuesta enviada exitosamente";
+    }
+
 
     $html = $_short->Armador($id);
     return $html;
